@@ -1,0 +1,37 @@
+<div class="card-content">
+  <h3 class="title">{{ bookListing.title }}</h3>
+  <p class="author">
+    <span nz-icon nzType="user" nzTheme="outline"></span>
+    {{ bookListing.author }}
+  </p>
+  <p class="genre">
+    <span nz-icon nzType="book" nzTheme="outline"></span>
+    {{ bookListing.genre }}
+  </p>
+  <p class="date">
+    <span nz-icon nzType="calendar" nzTheme="outline"></span>
+    {{ bookListing.dateStarted }}
+  </p>
+  <p class="rating">
+    <span nz-icon nzType="star" nzTheme="outline"></span>
+    {{ bookListing.rating }}
+  </p>
+
+  <div class="button-row">
+    <button
+      nz-button
+      nzType="primary"
+      class="detailsButton"
+      (click)="onViewDetailsClick(bookListing.id)"
+    >
+      View details
+    </button>
+    <button nz-button nzType="default" class="deleteButton" nzTheme="outline">
+      <span
+        nz-icon
+        nzType="delete"
+        (click)="onDeleteTripClick(bookListing.id)"
+      ></span>
+    </button>
+  </div>
+</div>

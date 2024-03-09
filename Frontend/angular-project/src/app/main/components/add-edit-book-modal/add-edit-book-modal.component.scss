@@ -1,0 +1,55 @@
+nz-form-item {
+  margin-bottom: 16px;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.red-text {
+  color: red;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+nz-input {
+  width: 100%;
+  max-width: 300px;
+}
+
+.inputReadOnly {
+  border: none;
+  pointer-events: none;
+  cursor: default;
+  text-align: left;
+  margin-left: -10px;
+  margin-top: 1px;
+}
+
+.switch-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.switch-label {
+  margin-left: 10px;
+}
+
+.modalFooterPrimaryButton {
+  border: none;
+  background-color: #be8846;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.modalFooterSecondaryButton {
+  border: 1px;
+  border-style: solid;
+  border-color: rgb(235, 234, 234);
+  background-color: white;
+  text-align: center;
+  border-radius: 10px;
+}

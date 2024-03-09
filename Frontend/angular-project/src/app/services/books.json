@@ -1,0 +1,123 @@
+[
+    {
+      "id": "1",
+      "title": "The Great Gatsby",
+      "author": "F. Scott Fitzgerald",
+      "description": "A novel by F. Scott Fitzgerald...",
+      "personalNotes": "Captivating story with vivid characters.",
+      "rating": 4.5,
+      "currentPage": 250,
+      "totalPages": 300,
+      "dateStarted": "01/12/2022",
+      "genre": "Fiction"
+    },
+    {
+      "id": "2",
+      "title": "Sapiens: A Brief History of Humankind",
+      "author": "Yuval Noah Harari",
+      "description": "Yuval Noah Harari explores the history of Homo sapiens...",
+      "personalNotes": "Fascinating insights into human history.",
+      "rating": 5,
+      "currentPage": 0,
+      "totalPages": 400,
+      "dateStarted": "01/02/2023",
+      "genre": "Non-Fiction"
+    },
+    {
+      "id": "3",
+      "title": "1984",
+      "author": "George Orwell",
+      "description": "George Orwell's dystopian classic...",
+      "personalNotes": "Thought-provoking and eerily relevant.",
+      "rating": 4,
+      "currentPage": 300,
+      "totalPages": 350,
+      "dateStarted": "20/01/2023",
+      "genre": "Science Fiction"
+    },
+    {
+      "id": "4",
+      "title": "The Catcher in the Rye",
+      "author": "J.D. Salinger",
+      "description": "J.D. Salinger's classic coming-of-age novel...",
+      "personalNotes": "Holden Caulfield is a memorable character.",
+      "rating": 4.2,
+      "currentPage": 210,
+      "totalPages": 230,
+      "dateStarted": "15/02/2023",
+      "genre": "Fiction"
+    },
+    {
+      "id": "5",
+      "title": "To Kill a Mockingbird",
+      "author": "Harper Lee",
+      "description": "Harper Lee's exploration of racial injustice...",
+      "personalNotes": "A powerful and important novel.",
+      "rating": 4.8,
+      "currentPage": 320,
+      "totalPages": 350,
+      "dateStarted": "01/03/2023",
+      "genre": "Fiction"
+    },
+    {
+      "id": "6",
+      "title": "The Hobbit",
+      "author": "J.R.R. Tolkien",
+      "description": "J.R.R. Tolkien's fantasy adventure...",
+      "personalNotes": "A classic journey with Bilbo Baggins.",
+      "rating": 4.7,
+      "currentPage": 20, 
+      "totalPages": 320,
+      "dateStarted": "05/03/2023",
+      "genre": "Fantasy"
+    },
+    {
+      "id": "7",
+      "title": "The Alchemist",
+      "author": "Paulo Coelho",
+      "description": "Paulo Coelho's philosophical novel...",
+      "personalNotes": "Follow your dreams and the universe will conspire.",
+      "rating": 4.6,
+      "currentPage": 190,
+      "totalPages": 200,
+      "dateStarted": "20/03/2023",
+      "genre": "Philosophy"
+    },
+    {
+      "id": "8",
+      "title": "Dune",
+      "author": "Frank Herbert",
+      "description": "Frank Herbert's epic science fiction...",
+      "personalNotes": "A desert planet and political intrigue.",
+      "rating": 4.9,
+      "currentPage": 420,
+      "totalPages": 500,
+      "dateStarted": "10/04/2023",
+      "genre": "Science Fiction"
+    },
+    {
+      "id": "9",
+      "title": "The Road",
+      "author": "Cormac McCarthy",
+      "description": "Cormac McCarthy's post-apocalyptic novel...",
+      "personalNotes": "A haunting and beautifully written journey.",
+      "rating": 4.4,
+      "currentPage": 150,
+      "totalPages": 230,
+      "dateStarted": "01/05/2023",
+      "genre": "Fiction"
+    },
+    {
+      "id": "10",
+      "title": "The Art of War",
+      "author": "Sun Tzu",
+      "description": "Sun Tzu's ancient Chinese military treatise...",
+      "personalNotes": "Timeless wisdom on strategy and tactics.",
+      "rating": 4.5,
+      "currentPage": 50,  
+      "totalPages": 120,
+      "dateStarted": "10/05/2023",
+      "genre": "Philosophy"
+    }
+  ]
+  

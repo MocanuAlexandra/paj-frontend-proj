@@ -1,0 +1,259 @@
+<nz-modal
+  [(nzVisible)]="isVisible"
+  (nzOnOk)="onOk()"
+  (nzOnCancel)="onCancel()"
+  [nzClosable]="false"
+  [nzFooter]="modalFooter"
+  [nzOkDisabled]="!bookEditForm.valid"
+>
+  <ng-container *nzModalContent>
+    <div class="switch-container">
+      <nz-switch
+        class="switch-button"
+        [ngModel]="isEditingEnabled"
+        [nzCheckedChildren]="checkedTemplate"
+        [nzUnCheckedChildren]="unCheckedTemplate"
+        (ngModelChange)="isEditingEnabled = $event"
+      ></nz-switch>
+      <span class="switch-label">{{
+        isEditingEnabled ? " Editing enabled" : " Editing disabled"
+      }}</span>
+    </div>
+
+    <ng-template #checkedTemplate>
+      <span nz-icon nzType="check"></span>
+    </ng-template>
+    <ng-template #unCheckedTemplate>
+      <span nz-icon nzType="close"></span>
+    </ng-template>
+
+    <form nz-form [formGroup]="bookEditForm">
+      <nz-form-item>
+        <nz-form-control>
+          <nz-input-group>
+            <label>Title</label>
+            <input
+              [readonly]="!isEditingEnabled"
+              [class.inputReadOnly]="!isEditingEnabled"
+              type="text"
+              nz-input
+              formControlName="title"
+              placeholder="Title"
+            />
+          </nz-input-group>
+          <div class="red-text" *ngIf="title?.errors?.['required']">
+            Title is required!
+          </div>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-control>
+          <nz-input-group>
+            <label>Author</label>
+            <input
+              [readonly]="!isEditingEnabled"
+              [class.inputReadOnly]="!isEditingEnabled"
+              type="text"
+              nz-input
+              formControlName="author"
+              placeholder="Author"
+            />
+          </nz-input-group>
+          <div class="red-text" *ngIf="author?.errors?.['required']">
+            Author is required!
+          </div>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-control>
+          <nz-input-group>
+            <label>Genre</label>
+            <input
+              [readonly]="!isEditingEnabled"
+              [class.inputReadOnly]="!isEditingEnabled"
+              readonly="isReadOnly"
+              type="text"
+              nz-input
+              formControlName="genre"
+              placeholder="Genre"
+            />
+          </nz-input-group>
+          <div class="red-text" *ngIf="genre?.errors?.['required']">
+            Genre is required!
+          </div>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-control>
+          <nz-input-group>
+            <label>Description</label>
+            <input
+              [readonly]="!isEditingEnabled"
+              [class.inputReadOnly]="!isEditingEnabled"
+              type="text"
+              nz-input
+              formControlName="description"
+              placeholder="Description"
+            />
+          </nz-input-group>
+          <div class="red-text" *ngIf="description?.errors?.['required']">
+            Description is required!
+          </div>
+        </nz-form-control>
+      </nz-form-item>
+
+      <label *ngIf="!isEditingEnabled">Progress</label>
+      <nz-progress
+        *ngIf="!isEditingEnabled"
+        [nzFormat]="formatProgress"
+        [nzPercent]="calculateProgress()"
+        [nzStrokeWidth]="20"
+      ></nz-progress>
+
+      <nz-form-item *ngIf="isEditingEnabled">
+        <nz-form-control>
+          <nz-input-group>
+            <label>Current page</label>
+            <input
+              type="number"
+              nz-input
+              formControlName="currentPage"
+              placeholder="Current page"
+            />
+          </nz-input-group>
+          <div class="red-text" *ngIf="currentPage?.errors?.['max']">
+            Current page should be a number less or equal to total pages!
+          </div>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item *ngIf="isEditingEnabled">
+        <nz-form-control>
+          <nz-input-group>
+            <label>Total pages</label>
+            <input
+              [readonly]="!isEditingEnabled"
+              [class.inputReadOnly]="!isEditingEnabled"
+              readonly="isReadOnly"
+              type="number"
+              nz-input
+              formControlName="totalPages"
+              placeholder="Total pages"
+            />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <div class="red-text" *ngIf="totalPages?.errors?.['pagesMin']">
+        Invalid page number!
+      </div>
+      <nz-form-item *ngIf="!isEditingEnabled">
+        <div></div>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-control>
+          <nz-input-group>
+            <label>Start date</label>
+            <input
+              [readonly]="!isEditingEnabled"
+              [class.inputReadOnly]="!isEditingEnabled"
+              type="text"
+              nz-input
+              formControlName="dateStarted"
+              placeholder="dd/mm/yyyy"
+            />
+          </nz-input-group>
+          <div class="red-text" *ngIf="dateStarted?.errors?.['required']">
+            Start date is required!
+          </div>
+          <div class="red-text" *ngIf="dateStarted?.errors?.['invalidDate']">
+            Invalid date format!
+          </div>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-control>
+          <nz-input-group>
+            <label>Personal notes</label>
+            <input
+              [readonly]="!isEditingEnabled"
+              [class.inputReadOnly]="!isEditingEnabled"
+              type="text"
+              nz-input
+              formControlName="personalNotes"
+              placeholder="Personal notes.."
+            />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-control>
+          <nz-input-group>
+            <label>Rating</label>
+            <input
+              [readonly]="!isEditingEnabled"
+              [class.inputReadOnly]="!isEditingEnabled"
+              readonly="isReadOnly"
+              type="number"
+              nz-input
+              formControlName="rating"
+              placeholder="Rating"
+            />
+          </nz-input-group>
+          <div class="red-text" *ngIf="rating?.errors?.['required']">
+            Rating is required!
+          </div>
+          <div class="red-text" *ngIf="rating?.errors?.['invalidRating']">
+            Rating must be a number between 0 and 5!
+          </div>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </ng-container>
+
+  <ng-template #modalFooter>
+    <button
+      class="modalFooterSecondaryButton"
+      nz-button
+      nzType="default"
+      *ngIf="!isEditingEnabled"
+      (click)="onCancel()"
+    >
+      Close
+    </button>
+    <button
+      class="modalFooterSecondaryButton"
+      nz-button
+      nzType="default"
+      *ngIf="isEditingEnabled"
+      (click)="onCancel()"
+    >
+      Cancel
+    </button>
+    <button
+      class="modalFooterPrimaryButton"
+      nz-button
+      nzType="primary"
+      [disabled]="!bookEditForm.valid"
+      *ngIf="isEditingEnabled"
+      (click)="onSubmitForm()"
+    >
+      Done
+    </button>
+    <button
+      class="modalFooterPrimaryButton"
+      nz-button
+      nzType="primary"
+      [disabled]="!bookEditForm.valid"
+      *ngIf="!isEditingEnabled"
+      (click)="onOk()"
+    >
+      OK
+    </button>
+  </ng-template>
+</nz-modal>

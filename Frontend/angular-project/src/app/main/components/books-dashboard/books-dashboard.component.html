@@ -1,0 +1,107 @@
+<button
+  nz-button
+  nzType="primary"
+  class="addBookButton"
+  (click)="onAddBookClick()"
+>
+  Add book
+</button>
+
+<div>
+  
+</div>
+<div class="pagination-content">
+  <div class="actionButtons">
+    <a
+      class="sortByButton"
+      nz-dropdown
+      [nzDropdownMenu]="menu"
+      [nzClickHide]="false"
+      [(nzVisible)]="visible"
+    >
+      Sort by
+      <span nz-icon nzType="down"></span>
+    </a>
+    <nz-dropdown-menu #menu="nzDropdownMenu">
+      <ul nz-menu>
+        <li nz-submenu nzTitle="Title">
+          <ul>
+            <li nz-menu-item (click)="sortByTitleAscending()">Ascending</li>
+            <li nz-menu-item (click)="sortByTitleDescending()">Descending</li>
+          </ul>
+        </li>
+        <li nz-submenu nzTitle="Genre">
+          <ul>
+            <li nz-menu-item (click)="sortByGenreAscending()">Ascending</li>
+            <li nz-menu-item (click)="sortByGenreDescending()">Descending</li>
+          </ul>
+        </li>
+        <li nz-submenu nzTitle="Start date">
+          <ul>
+            <li nz-menu-item (click)="sortByStartDateDescending()">
+              Most recent
+            </li>
+            <li nz-menu-item (click)="sortByStartDateAscending()">
+              Oldest first
+            </li>
+          </ul>
+        </li>
+        <li nz-submenu nzTitle="Number of pages">
+          <ul>
+            <li nz-menu-item (click)="sortByTotalPagesDescending()">
+              Greatest number
+            </li>
+            <li nz-menu-item (click)="sortByTotalPagesAscending()">
+              Least number
+            </li>
+          </ul>
+        </li>
+        <li nz-submenu nzTitle="Rating">
+          <ul>
+            <li nz-menu-item (click)="sortByRatingDescending()">
+              Most appreciated
+            </li>
+            <li nz-menu-item (click)="sortByRatingAscending()">
+              Least appreciated
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </nz-dropdown-menu>
+    <div class="prevNextButtons">
+      <button
+        nz-button
+        nzType="primary"
+        class="pagination-button"
+        (click)="previous()"
+      >
+        ❮
+      </button>
+      <button
+        nz-button
+        nzType="primary"
+        class="pagination-button"
+        (click)="next()"
+      >
+        ❯
+      </button>
+    </div>
+  </div>
+  <app-add-edit-book-modal
+    [isVisible]="isAddEditBookModalOpen"
+    [isEditingEnabled]="isEditingEnabled"
+    (closeModal)="isAddEditBookModalOpen = false"
+  ></app-add-edit-book-modal>
+  <div *ngIf="listOfBooks.length !== 0" class="books-list">
+    <div *ngFor="let elem of currentPageBooks">
+      <app-book-card
+        [bookListing]="elem"
+        (emitDeleteTripId)="deleteBook($event)"
+        (openViewDetailsModal)="onOpenViewDetailsModal()"
+      ></app-book-card>
+    </div>
+  </div>
+  <h1 *ngIf="listOfBooks.length === 0" class="empty-books-list-warning">
+    No books available!
+  </h1>
+</div>
