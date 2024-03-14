@@ -1,0 +1,82 @@
+<div class="form-container">
+  <form
+    nz-form
+    [formGroup]="loginForm"
+    class="login-form"
+    (submit)="submitForm()"
+  >
+    <nz-form-item>
+      <nz-form-control>
+        <nz-input-group>
+          <input
+            class="form-input"
+            type="email"
+            nz-input
+            formControlName="email"
+            placeholder="Email"
+          />
+        </nz-input-group>
+        <div
+          class="red-text"
+          *ngIf="email?.touched && email?.errors?.['required']"
+        >
+          Email is required!
+        </div>
+        <div
+          class="red-text"
+          *ngIf="email?.touched && email?.errors?.['invalidEmail'] && !email?.errors?.['required']"
+        >
+          Invalid email format!
+        </div>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control>
+        <nz-input-group>
+          <input
+            class="form-input"
+            type="password"
+            nz-input
+            formControlName="password"
+            placeholder="Password"
+          />
+        </nz-input-group>
+        <div
+          class="red-text"
+          *ngIf="password?.touched && password?.errors?.['required']"
+        >
+          Password is required!
+        </div>
+      </nz-form-control>
+    </nz-form-item>
+    <div *ngIf="!loginIsBeingRequested">
+      <button
+        nz-button
+        class="login-form-button"
+        [nzType]="'primary'"
+        [disabled]="!loginForm.valid"
+      >
+        Log in
+      </button>
+      <div class="additional-options-container">
+        <div class="remember-me-container">
+          <label for="remember-me">Remember me</label>
+          <input
+            type="checkbox"
+            name="remember-me"
+            id="remember-me"
+            formControlName="rememberMe"
+          />
+        </div>
+        <a class="register-navigator" (click)="navigateToRegister()"
+          >Register now!</a
+        >
+      </div>
+    </div>
+    <nz-spin
+      *ngIf="loginIsBeingRequested"
+      nzSimple
+      [nzSize]="'large'"
+    ></nz-spin>
+  </form>
+</div>

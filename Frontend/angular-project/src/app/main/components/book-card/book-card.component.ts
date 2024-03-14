@@ -12,7 +12,7 @@ export class BookCardComponent {
   bookListing!: Book;
 
   //contains all data
-  book?: Book;
+  book?: Book | null;
 
   @Output()
   emitDeleteTripId: EventEmitter<string> = new EventEmitter();
@@ -31,11 +31,11 @@ export class BookCardComponent {
     this.emitDeleteTripId.emit(bookId);
   }
 
-  onViewDetailsClick(bookId: string) {
+  async onViewDetailsClick(bookId: string) {
     //get the book with all data from server
-    this.book = this.bookService.getDetailsForBookId(bookId);
+    this.book = await this.bookService.getBookById(bookId);
 
-    if (this.book != undefined) {
+    if (this.book != null) {
       //assign this value to editedBook from service
       this.bookService.editedBook = this.book;
 

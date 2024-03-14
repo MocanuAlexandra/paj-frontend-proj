@@ -22,7 +22,7 @@
       nz-button
       nzType="primary"
       class="detailsButton"
-      (click)="onViewDetailsClick(bookListing.id)"
+      (click)="onViewDetailsClick(bookListing.bookId)"
     >
       View details
     </button>
@@ -30,7 +30,7 @@
       <span
         nz-icon
         nzType="delete"
-        (click)="onDeleteTripClick(bookListing.id)"
+        (click)="onDeleteTripClick(bookListing.bookId)"
       ></span>
     </button>
   </div>

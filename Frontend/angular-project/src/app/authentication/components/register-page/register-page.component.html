@@ -1,0 +1,134 @@
+<div class="form-container">
+  <form
+    nz-form
+    [formGroup]="registerForm"
+    class="register-form"
+    (submit)="submitForm()"
+  >
+    <nz-form-item>
+      <nz-form-control>
+        <nz-input-group>
+          <input
+            class="form-input"
+            type="email"
+            nz-input
+            formControlName="email"
+            placeholder="Email"
+          />
+        </nz-input-group>
+        <div
+          class="red-text"
+          *ngIf="email?.touched && email?.errors?.['required']"
+        >
+          Email is required!
+        </div>
+        <div
+          class="red-text"
+          *ngIf="email?.touched && email?.errors?.['invalidEmail'] && !email?.errors?.['required']"
+        >
+          Invalid email format!
+        </div>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control>
+        <nz-input-group>
+          <input
+            class="form-input"
+            type="password"
+            nz-input
+            formControlName="password"
+            placeholder="Password"
+          />
+        </nz-input-group>
+        <div
+          class="red-text"
+          *ngIf="password?.touched && password?.errors?.['required']"
+        >
+          Password is required!
+        </div>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control>
+        <nz-input-group>
+          <input
+            class="form-input"
+            type="password"
+            nz-input
+            formControlName="confirmPassword"
+            placeholder="Confirm Password"
+          />
+        </nz-input-group>
+        <div
+          class="red-text"
+          *ngIf="confirmPassword?.touched && confirmPassword?.errors?.['required']"
+        >
+          Password confirmation is required!
+        </div>
+        <div
+          class="red-text"
+          *ngIf="confirmPassword?.touched && registerForm?.errors?.['passwordMismatch']"
+        >
+          Passwords do not match!
+        </div>
+      </nz-form-control>
+    </nz-form-item>
+    <div class="name-input-container">
+      <nz-form-item>
+        <nz-form-control>
+          <nz-input-group>
+            <input
+              class="form-input"
+              type="text"
+              nz-input
+              formControlName="firstName"
+              placeholder="First Name"
+            />
+          </nz-input-group>
+          <div
+            class="red-text"
+            *ngIf="firstName?.touched && firstName?.errors?.['required']"
+          >
+            First name is required!
+          </div>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control>
+          <nz-input-group>
+            <input
+              class="form-input"
+              type="text"
+              nz-input
+              formControlName="lastName"
+              placeholder="Last Name"
+            />
+          </nz-input-group>
+          <div
+            class="red-text"
+            *ngIf="lastName?.touched && lastName?.errors?.['required']"
+          >
+            Last name is required!
+          </div>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div *ngIf="!registerIsBeingRequested">
+      <button
+        nz-button
+        class="register-form-button"
+        [nzType]="'primary'"
+        [disabled]="!registerForm.valid"
+      >
+        Register
+      </button>
+      <a class="login-navigator" (click)="navigateToLogin()">Log in!</a>
+    </div>
+    <nz-spin
+      *ngIf="registerIsBeingRequested"
+      nzSimple
+      [nzSize]="'large'"
+    ></nz-spin>
+  </form>
+</div>

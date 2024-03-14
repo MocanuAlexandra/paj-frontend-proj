@@ -15,7 +15,6 @@ export class BooksDashboardComponent {
   currentPageStartIndex: number = 0;
   pageLength: number = 6;
   visible = true;
-  searchText!: string;
 
   isAddEditBookModalOpen: boolean = false;
   isEditingEnabled: boolean = false;
@@ -23,6 +22,13 @@ export class BooksDashboardComponent {
   constructor(private bookService: BookService) {}
 
   ngOnInit(): void {
+    this.currentPageBooks = this.listOfBooks.slice(
+      this.currentPageStartIndex,
+      this.pageLength
+    );
+  }
+
+  ngOnChanges(): void {
     this.currentPageBooks = this.listOfBooks.slice(
       this.currentPageStartIndex,
       this.pageLength
@@ -168,7 +174,7 @@ export class BooksDashboardComponent {
   //this method is called when user deletes a book in order to delete it from UI
   deleteBook(id: string) {
     this.listOfBooks.splice(
-      this.listOfBooks.findIndex((item) => item.id === id),
+      this.listOfBooks.findIndex((item) => item.bookId === id),
       1
     );
     this.currentPageBooks = this.listOfBooks.slice(

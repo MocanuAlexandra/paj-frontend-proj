@@ -1,0 +1,66 @@
+.form-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: linear-gradient(to right, #28313b, #485461);
+
+  .form-input {
+    width: 100%;
+    border-radius: 10px;
+    padding: 5px;
+    background-color: #48515b;
+    color: white;
+  }
+
+  input::placeholder {
+    color: rgb(185, 180, 180);
+  }
+
+  .login-form {
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0px 0px 5px rgba(255, 255, 255, 0.5);
+  }
+
+  .login-form-button {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+  }
+
+  .additional-options-container {
+    display: flex;
+    margin-top: 10px;
+    color: white;
+
+    .remember-me-container {
+      margin-right: auto;
+
+      #remember-me {
+        vertical-align: middle;
+        margin-left: 3px;
+        cursor: pointer;
+      }
+    }
+
+    .register-navigator {
+      &:hover {
+        text-decoration: underline;
+      }
+      margin-left: 10px;
+    }
+  }
+
+  nz-spin {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+}
+
+.red-text {
+  color: red;
+}

@@ -26,36 +26,40 @@ export class AddEditBookModalComponent {
   }
 
   initializeForm(): void {
-    const editedBook = this.bookService.editedBook;
-
     this.bookEditForm = new FormGroup({
-      title: new FormControl(editedBook.title, [Validators.required]),
-      author: new FormControl(editedBook.author, [Validators.required]),
-      description: new FormControl(editedBook.description, [
+      title: new FormControl(this.bookService.editedBook.title, [
         Validators.required,
       ]),
-      personalNotes: new FormControl(editedBook.personalNotes),
-      rating: new FormControl(editedBook.rating, [
+      author: new FormControl(this.bookService.editedBook.author, [
+        Validators.required,
+      ]),
+      description: new FormControl(this.bookService.editedBook.description, [
+        Validators.required,
+      ]),
+      personalNotes: new FormControl(this.bookService.editedBook.personalNotes),
+      rating: new FormControl(this.bookService.editedBook.rating, [
         Validators.required,
         AddEditValidators.ratingValidator,
       ]),
-      currentPage: new FormControl(editedBook.currentPage, [
+      currentPage: new FormControl(this.bookService.editedBook.currentPage, [
         Validators.required,
         Validators.min(0),
         this.isEditingEnabled
-          ? Validators.max(editedBook.totalPages)
+          ? Validators.max(this.bookService.editedBook.totalPages)
           : Validators.nullValidator,
       ]),
-      totalPages: new FormControl(editedBook.totalPages, [
+      totalPages: new FormControl(this.bookService.editedBook.totalPages, [
         Validators.required,
         Validators.min(1),
         AddEditValidators.pagesValidator,
       ]),
-      dateStarted: new FormControl(editedBook.dateStarted, [
+      dateStarted: new FormControl(this.bookService.editedBook.dateStarted, [
         Validators.required,
         AddEditValidators.dateValidator,
       ]),
-      genre: new FormControl(editedBook.genre, [Validators.required]),
+      genre: new FormControl(this.bookService.editedBook.genre, [
+        Validators.required,
+      ]),
     });
 
     // Subscribe to changes in totalPages to update the max validator for currentPage
@@ -83,19 +87,21 @@ export class AddEditBookModalComponent {
   }
 
   onSubmitForm(): void {
-    const editedBook = this.bookService.editedBook;
+    this.bookService.editedBook.title = this.bookEditForm.value.title;
+    this.bookService.editedBook.author = this.bookEditForm.value.author;
+    this.bookService.editedBook.description =
+      this.bookEditForm.value.description;
+    this.bookService.editedBook.personalNotes =
+      this.bookEditForm.value.personalNotes;
+    this.bookService.editedBook.rating = this.bookEditForm.value.rating;
+    this.bookService.editedBook.currentPage =
+      this.bookEditForm.value.currentPage;
+    this.bookService.editedBook.totalPages = this.bookEditForm.value.totalPages;
+    this.bookService.editedBook.dateStarted =
+      this.bookEditForm.value.dateStarted;
+    this.bookService.editedBook.genre = this.bookEditForm.value.genre;
 
-    editedBook.title = this.bookEditForm.value.title;
-    editedBook.author = this.bookEditForm.value.author;
-    editedBook.description = this.bookEditForm.value.description;
-    editedBook.personalNotes = this.bookEditForm.value.personalNotes;
-    editedBook.rating = this.bookEditForm.value.rating;
-    editedBook.currentPage = this.bookEditForm.value.currentPage;
-    editedBook.totalPages = this.bookEditForm.value.totalPages;
-    editedBook.dateStarted = this.bookEditForm.value.dateStarted;
-    editedBook.genre = this.bookEditForm.value.genre;
-
-    this.bookService.updateOrCreateBook(editedBook);
+    this.bookService.updateOrCreateBook(this.bookService.editedBook);
 
     this.closeModal.emit(true);
   }
