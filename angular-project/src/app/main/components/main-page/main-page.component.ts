@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Book } from '../../../interfaces/book';
-import { BooksDashboardComponent } from "../books-dashboard/books-dashboard.component";
 import { BookService } from 'src/app/services/book.service';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authentication.service';
@@ -19,7 +18,7 @@ export class MainPageComponent {
     private authenticationService: AuthenticationService,
   ) {
     // Listen for any changes in the books list
-    this.bookService.listOfBooksSubject.subscribe((res) => {
+    this.bookService.listOfBooksSubject.subscribe((res: any) => {
       this.listOfBooks = [...res];
     });
   }

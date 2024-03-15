@@ -65,7 +65,7 @@ export class AddEditBookModalComponent {
     // Subscribe to changes in totalPages to update the max validator for currentPage
     this.bookEditForm
       .get('totalPages')!
-      .valueChanges.subscribe((totalPages) => {
+      .valueChanges.subscribe((totalPages: number) => {
         this.bookEditForm
           .get('currentPage')!
           .setValidators([
