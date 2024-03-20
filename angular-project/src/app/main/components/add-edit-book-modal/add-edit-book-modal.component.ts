@@ -33,9 +33,6 @@ export class AddEditBookModalComponent {
       author: new FormControl(this.bookService.editedBook.author, [
         Validators.required,
       ]),
-      description: new FormControl(this.bookService.editedBook.description, [
-        Validators.required,
-      ]),
       personalNotes: new FormControl(this.bookService.editedBook.personalNotes),
       rating: new FormControl(this.bookService.editedBook.rating, [
         Validators.required,
@@ -89,8 +86,6 @@ export class AddEditBookModalComponent {
   onSubmitForm(): void {
     this.bookService.editedBook.title = this.bookEditForm.value.title;
     this.bookService.editedBook.author = this.bookEditForm.value.author;
-    this.bookService.editedBook.description =
-      this.bookEditForm.value.description;
     this.bookService.editedBook.personalNotes =
       this.bookEditForm.value.personalNotes;
     this.bookService.editedBook.rating = this.bookEditForm.value.rating;
@@ -112,9 +107,6 @@ export class AddEditBookModalComponent {
   }
   get author(): FormControl {
     return this.bookEditForm.get('author') as FormControl;
-  }
-  get description(): FormControl {
-    return this.bookEditForm.get('description') as FormControl;
   }
   get personalNotes(): FormControl {
     return this.bookEditForm.get('personalNotes') as FormControl;

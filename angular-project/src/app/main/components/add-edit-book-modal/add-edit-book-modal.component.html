@@ -86,25 +86,6 @@
         </nz-form-control>
       </nz-form-item>
 
-      <nz-form-item>
-        <nz-form-control>
-          <nz-input-group>
-            <label>Description</label>
-            <input
-              [readonly]="!isEditingEnabled"
-              [class.inputReadOnly]="!isEditingEnabled"
-              type="text"
-              nz-input
-              formControlName="description"
-              placeholder="Description"
-            />
-          </nz-input-group>
-          <div class="red-text" *ngIf="description?.errors?.['required']">
-            Description is required!
-          </div>
-        </nz-form-control>
-      </nz-form-item>
-
       <label *ngIf="!isEditingEnabled">Progress</label>
       <nz-progress
         *ngIf="!isEditingEnabled"
