@@ -10,40 +10,29 @@ import {jwtDecode} from 'jwt-decode';
 export class AuthenticationService {
 
   private currentUser: User | null = null;
+  private currentUsername: string | null = '';
 
-  //TODO: Replace with the actual API URL
-  private baseURL = 'http://localhost:5000/api/Users';
+  private baseURL = 'http://localhost:80/api/auth';
 
-  constructor() { 
-    // Check for stored credentials
-    const storedData = localStorage.getItem("RememberedUser");
-    if(storedData){
-      this.currentUser = JSON.parse(storedData);
-    }
-  }
+  constructor() {}
 
   async login(credentials: LoginCredentials, rememberMe: boolean) {
     try{
       const response = await fetch(
         `${this.baseURL}/login`,
         {
-          method: "POST",
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
+        method: "POST",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
             ...credentials
           }),
-        }
+      }
       );
 
-      const token = (await response.json()).token;
-      this.currentUser = this.decodeJWT(token);
-
-      // If the rememberMe option is checked, store user credentials in local storage
-      if(rememberMe)
-        localStorage.setItem("RememberedUser", JSON.stringify(this.currentUser));
+      this.currentUsername = (await response.json()).username;
 
       return response.status;
     } catch(error){
@@ -59,31 +48,33 @@ export class AuthenticationService {
       const response = await fetch(
         `${this.baseURL}/register`,
         {
-          method: "POST",
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            email: credentials.email,
-            password: credentials.password,
-            name: credentials.firstName,
-            surname: credentials.lastName,
-          }),
-        }
+        method: "POST",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email: credentials.email,
+          password: credentials.password,
+          name: credentials.firstName,
+          surname: credentials.lastName,
+        }),
+      }
       );
-      
+
+      //TODO fix this
       const token = (await response.json()).token;
       this.currentUser = this.decodeJWT(token);
 
       return response.status;
-    } catch(error){
+    } catch (error) {
       console.error(error);
     }
 
     return 0;
   }
 
+  //TODO fix this
   logout() {
     // Remove the remembered user (nothing will happen if there is no remembered user)
     localStorage.removeItem("RememberedUser");
@@ -94,11 +85,11 @@ export class AuthenticationService {
   get user(): User | null {
     return this.currentUser;
   }
-  get isAuthenticated() : boolean {
-    return this.currentUser ? true : false;
+  get isAuthenticated(): boolean {
+    return this.currentUsername ? true : false;
   }
 
-
+  
   decodeJWT(token: string) : User | null {
     const decoded = jwtDecode<any>(token);
     return {
