@@ -22,6 +22,11 @@ class PermissionsService {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): boolean | UrlTree {
+    // First check if the user is trying to access the guest page
+    if (this.authenticationService.isGuestMode) {
+      return true;
+    }
+    
     // Return true if the user is authenticated and redirect to the login page if not
     return this.authenticationService.isAuthenticated
       ? true

@@ -10,6 +10,8 @@ import { BookService } from 'src/app/services/book.service';
 export class BooksDashboardComponent {
   @Input()
   listOfBooks!: Book[];
+  @Input()
+  guestMode!: boolean;
 
   currentPageBooks!: Book[];
   currentPageStartIndex: number = 0;

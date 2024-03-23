@@ -1,0 +1,14 @@
+<div class="container">
+    <img
+      class="image"
+      src="https://jerryjenkins.com/wp-content/uploads/2015/06/Library-Picture-Crop.jpg"
+    />
+    <div class="semi-transparent"></div>
+  
+    <button nz-button nzType="primary" class="registerButton" (click)="navigateToRegisterPage()">
+      Register now
+    </button>
+    <h1 class="title">Hello you, visitor!</h1>
+</div>
+
+<app-books-dashboard [listOfBooks]="listOfBooks" [guestMode]="true"></app-books-dashboard>

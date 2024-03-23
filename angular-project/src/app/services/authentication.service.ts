@@ -11,6 +11,7 @@ export class AuthenticationService {
 
   private currentUser: User | null = null;
   private currentUsername: string | null = '';
+  private guestMode = false;
 
   private baseURL = 'http://localhost:80/api/auth';
 
@@ -87,6 +88,12 @@ export class AuthenticationService {
   }
   get isAuthenticated(): boolean {
     return this.currentUsername ? true : false;
+  }
+  get isGuestMode(): boolean {
+    return this.guestMode;
+  }
+  set isGuestMode(value: boolean) {
+    this.guestMode = value;
   }
 
   

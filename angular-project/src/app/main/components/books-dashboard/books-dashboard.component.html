@@ -1,15 +1,15 @@
-<button
-  nz-button
-  nzType="primary"
-  class="addBookButton"
-  (click)="onAddBookClick()"
->
-  Add book
-</button>
-
-<div>
-  
+<div *ngIf="!guestMode">
+  <button
+    nz-button
+    nzType="primary"
+    class="addBookButton"
+    (click)="onAddBookClick()"
+  >
+    Add book
+  </button>
 </div>
+
+<div></div>
 <div class="pagination-content">
   <div class="actionButtons">
     <a
@@ -87,11 +87,14 @@
       </button>
     </div>
   </div>
-  <app-add-edit-book-modal
-    [isVisible]="isAddEditBookModalOpen"
-    [isEditingEnabled]="isEditingEnabled"
-    (closeModal)="isAddEditBookModalOpen = false"
-  ></app-add-edit-book-modal>
+  <div *ngIf="!guestMode">
+    <app-add-edit-book-modal
+      [isVisible]="isAddEditBookModalOpen"
+      [isEditingEnabled]="isEditingEnabled"
+      (closeModal)="isAddEditBookModalOpen = false"
+    ></app-add-edit-book-modal>
+  </div>
+
   <div *ngIf="listOfBooks.length !== 0" class="books-list">
     <div *ngFor="let elem of currentPageBooks">
       <app-book-card

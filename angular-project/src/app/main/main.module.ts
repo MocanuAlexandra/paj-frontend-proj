@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MainRoutingModule } from './main-routing.module';
 import { MainPageComponent } from './components/main-page/main-page.component';
+import { MainPageGuestComponent } from './components/main-page-guest/main-page-guest.component';
 import { BooksDashboardComponent } from './components/books-dashboard/books-dashboard.component';
 import { AddEditBookModalComponent } from './components/add-edit-book-modal/add-edit-book-modal.component';
 import { BookCardComponent } from './components/book-card/book-card.component';
@@ -20,10 +21,12 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
 import { NzProgressModule } from 'ng-zorro-antd/progress';
 
+
 @NgModule({
   declarations: [
     BookCardComponent,
     MainPageComponent,
+    MainPageGuestComponent,
     BooksDashboardComponent,
     AddEditBookModalComponent,
   ],

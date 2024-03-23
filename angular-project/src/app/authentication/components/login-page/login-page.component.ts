@@ -60,7 +60,13 @@ export class LoginPageComponent implements OnInit {
   }
 
   navigateToMain() {
-    this.router.navigate(['/main']);
+    this.router.navigate(['/main/home']);
+  }
+
+  navigateToGuestPage() {
+    // set the guest mode to true
+    this.authenticationService.isGuestMode = true;
+    this.router.navigate(['/main/guest']);
   }
 
   get email(): FormControl {

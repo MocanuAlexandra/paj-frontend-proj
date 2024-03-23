@@ -11,7 +11,7 @@ import { AuthenticationService } from './authentication.service';
 })
 export class BookService {
   //TODO: Replace with the actual API URL
-  private baseURL = 'http://localhost:5000/api/Trips';
+  private baseURL = 'http://localhost:80/api/resource';
 
   //private listOfBooksData: Book[] = booksDataJson;
   private listOfBooksData!: Book[];
@@ -81,6 +81,13 @@ export class BookService {
       };
     });
   }
+
+  // request all books for the guest
+  //TODO: replace with actual API call
+  async requestBooksForGuest() {
+    this.listOfBooks = booksDataJson;
+  }
+
 
   //delete book
   async deleteBook(bookId: string) {
