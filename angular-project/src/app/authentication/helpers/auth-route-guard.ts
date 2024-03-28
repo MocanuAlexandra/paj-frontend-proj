@@ -19,8 +19,8 @@ class PermissionsService {
   ) {}
 
   canActivate(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
+    _next: ActivatedRouteSnapshot,
+    _state: RouterStateSnapshot
   ): boolean | UrlTree {
     // First check if the user is trying to access the guest page
     if (this.authenticationService.isGuestMode) {

@@ -2,41 +2,36 @@ import { Injectable } from '@angular/core';
 import { User } from '../interfaces/user';
 import { LoginCredentials } from '../authentication/interfaces/login-credentials.interface';
 import { RegisterCredentials } from '../authentication/interfaces/register-credentials.interface';
-import {jwtDecode} from 'jwt-decode';
+import { ConfigService } from './config.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthenticationService {
-
   private currentUser: User | null = null;
   private currentUsername: string | null = '';
   private guestMode = false;
 
-  private baseURL = 'http://localhost:80/api/auth';
-
-  constructor() {}
+  constructor(private configService: ConfigService) {}
 
   async login(credentials: LoginCredentials, rememberMe: boolean) {
-    try{
-      const response = await fetch(
-        `${this.baseURL}/login`,
-        {
-        method: "POST",
+    try {
+      const response = await fetch(`${this.configService.baseURL}/auth/login`, {
+        method: 'POST',
         headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
+         'Accept': 'application/json',
+         'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            ...credentials
-          }),
-      }
-      );
+          ...credentials,
+        }),
+      });
 
+      //TODO maybe replace with id of user instead of username
       this.currentUsername = (await response.json()).username;
 
       return response.status;
-    } catch(error){
+    } catch (error) {
       console.error(error);
     }
 
@@ -44,28 +39,25 @@ export class AuthenticationService {
   }
 
   async register(credentials: RegisterCredentials) {
-    try
-    {
+    try {
       const response = await fetch(
-        `${this.baseURL}/register`,
+        `${this.configService.baseURL}/auth/register`,
         {
-        method: "POST",
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          email: credentials.email,
-          password: credentials.password,
-          name: credentials.firstName,
-          surname: credentials.lastName,
-        }),
-      }
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: credentials.email,
+            password: credentials.password,
+            firstName: credentials.firstName,
+            lastName: credentials.lastName,
+          }),
+        }
       );
 
-      //TODO fix this
-      const token = (await response.json()).token;
-      this.currentUser = this.decodeJWT(token);
+      //TODO receive from backend the id of the user, in order to store it in the user object
 
       return response.status;
     } catch (error) {
@@ -78,7 +70,7 @@ export class AuthenticationService {
   //TODO fix this
   logout() {
     // Remove the remembered user (nothing will happen if there is no remembered user)
-    localStorage.removeItem("RememberedUser");
+    localStorage.removeItem('RememberedUser');
 
     this.currentUser = null;
   }
@@ -94,15 +86,5 @@ export class AuthenticationService {
   }
   set isGuestMode(value: boolean) {
     this.guestMode = value;
-  }
-
-  
-  decodeJWT(token: string) : User | null {
-    const decoded = jwtDecode<any>(token);
-    return {
-      id: decoded.nameid,
-      email: decoded.name,
-      JWT: token,
-    };
   }
 }

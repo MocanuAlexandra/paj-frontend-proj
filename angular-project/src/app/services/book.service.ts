@@ -5,22 +5,22 @@ import { v4 as uuidv4 } from 'uuid';
 import booksDataJson from './books.json';
 import { Book } from '../interfaces/book';
 import { AuthenticationService } from './authentication.service';
+import { ConfigService } from './config.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BookService {
-  //TODO: Replace with the actual API URL
-  private baseURL = 'http://localhost:80/api/resource';
-
-  //private listOfBooksData: Book[] = booksDataJson;
   private listOfBooksData!: Book[];
   listOfBooksSubject = new Subject<Book[]>();
 
   private edited: Book = this.emptyBook();
   editedBookSubject = new Subject<Book>();
 
-  constructor(private authService: AuthenticationService) {}
+  constructor(
+    private authService: AuthenticationService,
+    private configService: ConfigService
+  ) {}
 
   //getter
   get editedBook() {
@@ -58,13 +58,15 @@ export class BookService {
 
   // request all books for the current user
   async requestBooks() {
-    const response = await fetch(`${this.baseURL}/getAllForUser`, {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        Authorization: `Bearer ${this.authService.user?.JWT}`,
-      },
-    });
+    const response = await fetch(
+      `${this.configService.baseURL}/books/getAllForUser`,
+      {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+        },
+      }
+    );
 
     this.listOfBooks = (await response.json()).map((book: any) => {
       return {
@@ -88,15 +90,13 @@ export class BookService {
     this.listOfBooks = booksDataJson;
   }
 
-
   //delete book
   async deleteBook(bookId: string) {
-    const response = await fetch(`${this.baseURL}/delete`, {
+    const response = await fetch(`${this.configService.baseURL}/books/delete`, {
       method: 'DELETE',
       headers: {
-        Accept: 'application/json',
+        'Accept': 'application/json',
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${this.authService.user?.JWT}`,
       },
       body: JSON.stringify({
         bookId: bookId,
@@ -116,12 +116,11 @@ export class BookService {
 
   // add new book into db
   async addNewBook(newBook: Book) {
-    const response = await fetch(`${this.baseURL}/create`, {
+    const response = await fetch(`${this.configService.baseURL}/books/create`, {
       method: 'POST',
       headers: {
-        Accept: 'application/json',
+        'Accept': 'application/json',
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${this.authService.user?.JWT}`,
       },
       body: JSON.stringify({
         userId: this.authService.user?.id,
@@ -162,12 +161,11 @@ export class BookService {
 
   // update book in db
   async updateBook(editedBook: Book) {
-    const response = await fetch(`${this.baseURL}/update`, {
+    const response = await fetch(`${this.configService.baseURL}/books/update`, {
       method: 'PUT',
       headers: {
-        Accept: 'application/json',
+        'Accept': 'application/json',
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${this.authService.user?.JWT}`,
       },
       body: JSON.stringify({
         bookId: editedBook.bookId,
@@ -198,13 +196,15 @@ export class BookService {
 
   //get details for given bookId
   async getBookById(bookId: string): Promise<Book | null> {
-    const response = await fetch(`${this.baseURL}/getById/?bookId=${bookId}`, {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        Authorization: `Bearer ${this.authService.user?.JWT}`,
-      },
-    });
+    const response = await fetch(
+      `${this.configService.baseURL}/books/getById/?bookId=${bookId}`,
+      {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+        },
+      }
+    );
 
     if (response.status === 200) {
       const book = await response.json();
