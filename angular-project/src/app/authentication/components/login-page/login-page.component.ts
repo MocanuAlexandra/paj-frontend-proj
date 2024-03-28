@@ -35,7 +35,6 @@ export class LoginPageComponent implements OnInit {
         CredentialsValidators.emailValidator,
       ]),
       password: new FormControl<string>('', [Validators.required]),
-      rememberMe: new FormControl<boolean>(false),
     });
   }
 
@@ -47,7 +46,7 @@ export class LoginPageComponent implements OnInit {
 
     this.loginIsBeingRequested = true;
     this.authenticationService
-      .login(credentials, this.loginForm.value.rememberMe)
+      .login(credentials)
       .then((statusCode: number) => {
         this.loginIsBeingRequested = false;
         // If the user has logged in successfully, redirect to the main page

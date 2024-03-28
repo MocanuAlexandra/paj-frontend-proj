@@ -9,12 +9,11 @@ import { ConfigService } from './config.service';
 })
 export class AuthenticationService {
   private currentUser: User | null = null;
-  private currentUsername: string | null = '';
   private guestMode = false;
 
   constructor(private configService: ConfigService) {}
 
-  async login(credentials: LoginCredentials, rememberMe: boolean) {
+  async login(credentials: LoginCredentials) {
     try {
       const response = await fetch(`${this.configService.baseURL}/auth/login`, {
         method: 'POST',
@@ -27,9 +26,10 @@ export class AuthenticationService {
         }),
       });
 
-      //TODO maybe replace with id of user instead of username
-      this.currentUsername = (await response.json()).username;
-
+      // If the login is successful, store the user object
+      this.currentUser = await response.json() as User;
+      console.log(this.currentUser);
+        
       return response.status;
     } catch (error) {
       console.error(error);
@@ -57,7 +57,9 @@ export class AuthenticationService {
         }
       );
 
-      //TODO receive from backend the id of the user, in order to store it in the user object
+      // If the register is successful, store the user object
+      this.currentUser = await response.json() as User;
+      console.log(this.currentUser);
 
       return response.status;
     } catch (error) {
@@ -69,9 +71,6 @@ export class AuthenticationService {
 
   //TODO fix this
   logout() {
-    // Remove the remembered user (nothing will happen if there is no remembered user)
-    localStorage.removeItem('RememberedUser');
-
     this.currentUser = null;
   }
 
@@ -79,7 +78,7 @@ export class AuthenticationService {
     return this.currentUser;
   }
   get isAuthenticated(): boolean {
-    return this.currentUsername ? true : false;
+    return this.currentUser ? true : false;
   }
   get isGuestMode(): boolean {
     return this.guestMode;
