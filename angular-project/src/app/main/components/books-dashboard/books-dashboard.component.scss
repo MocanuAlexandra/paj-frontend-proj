@@ -56,8 +56,11 @@
       font-size: 18px;
       margin-left: 10px;
       border: none;
-      background-color: #28313b;
+      background-color: #3b3328;
       color: white;
+      &:hover {
+        background-color: #806f56;
+      }
     }
 
     .sortByButton {
@@ -66,19 +69,13 @@
       margin-right: 10px;
       border: none;
       width: 100px;
-      background-color: #28313b;
+      background-color: #3b3328;
       color: white;
       text-align: center;
+      &:hover {
+        background-color: #806f56;
+      }
     }
   }
 }
-.search-bar {
-  display: flex;
-  justify-content: center;
-  width: 500px;
-  position: absolute;
-  top: 70%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  margin-bottom: 30px;
-}
+

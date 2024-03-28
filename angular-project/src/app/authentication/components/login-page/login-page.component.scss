@@ -4,36 +4,46 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: linear-gradient(to right, #28313b, #485461);
+  background-image: linear-gradient(to bottom, #876ab6, #bac8e0);
 
   .form-input {
     width: 100%;
-    border-radius: 10px;
-    padding: 5px;
-    background-color: #48515b;
-    color: white;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #ffffff;
+    color: #333333;
+    border: 1px solid #cccccc;
+    margin-bottom: 15px;
   }
 
   input::placeholder {
-    color: rgb(185, 180, 180);
+    color: #888888;
   }
 
   .login-form {
-    padding: 30px;
-    border-radius: 20px;
-    box-shadow: 0px 0px 5px rgba(255, 255, 255, 0.5);
+    padding: 40px;
+    border-radius: 15px;
+    background: #f3f4f6;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   }
 
   .login-form-button {
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
+    width: 100%;
+    border-radius: 5px;
+    background-color: #4a77d4;
+    color: white;
+    border: none;
+    cursor: pointer;
+    &:disabled {
+      background-color: #cccccc;
+      cursor: not-allowed;
+    }
   }
 
   .additional-options-container {
     display: flex;
-    margin-top: 10px;
-    color: white;
+    margin-top: 20px;
+    color: rgb(18, 14, 14);
 
     .remember-me-container {
       margin-right: auto;
@@ -47,20 +57,17 @@
 
     .register-navigator {
       &:hover {
-        text-decoration: underline;
+        color: #b43cf1;
       }
       margin-left: 10px;
     }
   }
 
   nz-spin {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
+    margin-top: 20px;
   }
 }
 
 .red-text {
-  color: red;
+  color: #ff6b6b;
 }

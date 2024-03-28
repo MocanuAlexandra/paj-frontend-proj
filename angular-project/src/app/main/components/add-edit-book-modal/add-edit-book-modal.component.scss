@@ -43,6 +43,9 @@ nz-input {
   background-color: #be8846;
   text-align: center;
   border-radius: 10px;
+  &:hover {
+    background-color: #d2b58b;
+  }
 }
 
 .modalFooterSecondaryButton {
