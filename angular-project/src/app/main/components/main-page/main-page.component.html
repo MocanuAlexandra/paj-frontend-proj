@@ -5,10 +5,15 @@
   />
   <div class="semi-transparent"></div>
 
-  <button nz-button nzType="primary" class="logoutButton" (click)="logout()">
+  <button
+    nz-button
+    nzType="primary"
+    class="logoutButton"
+    (click)="logout()"
+    [hidden]="false"
+  >
     Logout
   </button>
   <h1 class="title">Welcome back, dear reader!</h1>
 </div>
-
 <app-books-dashboard [listOfBooks]="listOfBooks"></app-books-dashboard>

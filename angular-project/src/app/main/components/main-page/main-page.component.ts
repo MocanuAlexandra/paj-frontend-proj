@@ -5,17 +5,18 @@ import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
-    selector: 'app-main-page',
-    templateUrl: './main-page.component.html',
-    styleUrls: ['./main-page.component.scss'],
+  selector: 'app-main-page',
+  templateUrl: './main-page.component.html',
+  styleUrls: ['./main-page.component.scss'],
 })
 export class MainPageComponent {
   listOfBooks!: Book[];
+  successStatusCode = 200;
 
   constructor(
-    private bookService:BookService,
+    private bookService: BookService,
     private router: Router,
-    private authenticationService: AuthenticationService,
+    private authenticationService: AuthenticationService
   ) {
     // Listen for any changes in the books list
     this.bookService.listOfBooksSubject.subscribe((res: any) => {
@@ -29,10 +30,11 @@ export class MainPageComponent {
   }
 
   logout() {
-    // Log the user out
-    this.authenticationService.logout();
-
-    // Take the user back to the login page
-    this.router.navigate(['/auth/login']);
+    this.authenticationService.logout().then((statusCode: number) => {
+      // If the user has logged out successfully, redirect to the login page
+      if (statusCode === this.successStatusCode) {
+        this.router.navigate(['/auth/login']);
+      }
+    });
   }
 }

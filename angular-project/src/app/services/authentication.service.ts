@@ -69,9 +69,30 @@ export class AuthenticationService {
     return 0;
   }
 
-  //TODO fix this
-  logout() {
-    this.currentUser = null;
+  async logout() {
+    try {
+      const response = await fetch(
+        `${this.configService.baseURL}/auth/logout`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },       
+        }
+      );
+
+      var logoutMessage = await response.json() as String;
+      console.log(logoutMessage);
+
+      // If the logout is successful, remove the user object
+      this.currentUser = null;
+
+      return response.status;
+    } catch (error) {
+      console.error(error);
+    }
+
+    return 0;
   }
 
   get user(): User | null {
