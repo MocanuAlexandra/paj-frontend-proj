@@ -87,13 +87,13 @@
       </button>
     </div>
   </div>
-  <div *ngIf="!guestMode">
-    <app-add-edit-book-modal
-      [isVisible]="isAddEditBookModalOpen"
-      [isEditingEnabled]="isEditingEnabled"
-      (closeModal)="isAddEditBookModalOpen = false"
-    ></app-add-edit-book-modal>
-  </div>
+
+  <app-add-edit-book-modal
+    [guestMode]="guestMode"
+    [isVisible]="isAddEditBookModalOpen"
+    [isEditingEnabled]="isEditingEnabled"
+    (closeModal)="isAddEditBookModalOpen = false"
+  ></app-add-edit-book-modal>
 
   <div *ngIf="listOfBooks.length !== 0" class="books-list">
     <div *ngFor="let elem of currentPageBooks">

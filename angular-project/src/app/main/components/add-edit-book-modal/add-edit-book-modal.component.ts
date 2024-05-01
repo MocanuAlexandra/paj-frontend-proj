@@ -9,6 +9,7 @@ import { BookService } from 'src/app/services/book.service';
   styleUrls: ['./add-edit-book-modal.component.scss'],
 })
 export class AddEditBookModalComponent {
+  @Input() guestMode: boolean = false;
   @Input() isVisible: boolean = false;
   @Input() isEditingEnabled: boolean = false;
   @Output() closeModal: EventEmitter<boolean> = new EventEmitter<boolean>();

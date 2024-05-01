@@ -85,9 +85,31 @@ export class BookService {
   }
 
   // request all books for the guest
-  //TODO: replace with actual API call
   async requestBooksForGuest() {
-    this.listOfBooks = booksDataJson;
+    const response = await fetch(
+      `${this.configService.baseURL}/books/guest`,
+      {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+        },
+      }
+    );
+
+    this.listOfBooks = (await response.json()).map((book: any) => {
+      return {
+        userId: book.userId,
+        bookId: book.bookId,
+        title: book.title,
+        author: book.author,
+        personalNotes: '',
+        rating: book.rating,
+        currentPage: 0,
+        totalPages: book.totalPages,
+        dateStarted: book.dateStarted,
+        genre: book.genre,
+      };
+    });
   }
 
   //delete book

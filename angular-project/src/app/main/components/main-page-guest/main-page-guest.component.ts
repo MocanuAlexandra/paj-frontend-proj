@@ -9,7 +9,7 @@ import { BookService } from 'src/app/services/book.service';
   styleUrl: './main-page-guest.component.scss'
 })
 export class MainPageGuestComponent {
-  listOfBooks!: Book[];
+  listOfBooks: Book[]=[];
 
   constructor(
     private bookService:BookService,

@@ -220,7 +220,7 @@
       class="modalFooterPrimaryButton"
       nz-button
       nzType="primary"
-      [disabled]="!bookEditForm.valid"
+      [disabled]="!bookEditForm.valid || guestMode"
       *ngIf="isEditingEnabled"
       (click)="onSubmitForm()"
     >
@@ -230,7 +230,7 @@
       class="modalFooterPrimaryButton"
       nz-button
       nzType="primary"
-      [disabled]="!bookEditForm.valid"
+      [disabled]="!bookEditForm.valid || guestMode"
       *ngIf="!isEditingEnabled"
       (click)="onOk()"
     >
