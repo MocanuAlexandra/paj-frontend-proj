@@ -59,7 +59,7 @@ export class BookService {
   // request all books for the current user
   async requestBooks() {
     const response = await fetch(
-      `${this.configService.baseURL}/books/getAllForUser`,
+      `${this.configService.baseURL}/books/mine`,
       {
         method: 'GET',
         headers: {
