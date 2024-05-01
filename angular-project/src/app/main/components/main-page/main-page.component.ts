@@ -10,7 +10,7 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
   styleUrls: ['./main-page.component.scss'],
 })
 export class MainPageComponent {
-  listOfBooks!: Book[];
+  listOfBooks: Book[]=[];
   successStatusCode = 200;
 
   constructor(

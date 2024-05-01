@@ -9,7 +9,7 @@ import { BookService } from 'src/app/services/book.service';
 })
 export class BooksDashboardComponent {
   @Input()
-  listOfBooks!: Book[];
+  listOfBooks: Book[] =[];
   @Input()
   guestMode!: boolean;
 
@@ -154,6 +154,8 @@ export class BooksDashboardComponent {
   }
 
   sortByTotalPagesAscending() {
+    console.log('sort by total pages ascending');
+    console.log(this.listOfBooks)
     this.listOfBooks.sort((a, b) => a.totalPages - b.totalPages);
     this.currentPageBooks = this.listOfBooks.slice(
       this.currentPageStartIndex,
@@ -163,6 +165,7 @@ export class BooksDashboardComponent {
   }
 
   sortByTotalPagesDescending() {
+    console.log('descending');
     this.listOfBooks.sort((a, b) => b.totalPages - a.totalPages);
     this.currentPageBooks = this.listOfBooks.slice(
       this.currentPageStartIndex,

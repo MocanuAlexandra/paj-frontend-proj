@@ -11,7 +11,7 @@ import { ConfigService } from './config.service';
   providedIn: 'root',
 })
 export class BookService {
-  private listOfBooksData!: Book[];
+  private listOfBooksData: Book[]=[];
   listOfBooksSubject = new Subject<Book[]>();
 
   private edited: Book = this.emptyBook();
@@ -77,7 +77,7 @@ export class BookService {
         personalNotes: '',
         rating: book.rating,
         currentPage: 0,
-        totalPages: 0,
+        totalPages: book.totalPages,
         dateStarted: book.dateStarted,
         genre: book.genre,
       };
@@ -197,7 +197,7 @@ export class BookService {
   //get details for given bookId
   async getBookById(bookId: string): Promise<Book | null> {
     const response = await fetch(
-      `${this.configService.baseURL}/books/getById/?bookId=${bookId}`,
+      `${this.configService.baseURL}/books/${bookId}`,
       {
         method: 'GET',
         headers: {

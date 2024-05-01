@@ -23,7 +23,7 @@ export class BookCardComponent {
   constructor(private bookService: BookService) {}
 
   //click functions
-  onDeleteTripClick(bookId: string) {
+  onDeleteBookClick(bookId: string) {
     //call the service to delete book from backend
     this.bookService.deleteBook(bookId);
 
