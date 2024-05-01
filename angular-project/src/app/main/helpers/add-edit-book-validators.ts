@@ -20,13 +20,13 @@ export class AddEditValidators {
 
   public static dateValidator(date: FormControl): ValidationErrors | null {
     // Regular expression to match the date format
-    const DATE_REGEXP = /^\d{1,2}\/\d{1,2}\/\d{4}$/;
+    const DATE_REGEXP = /^\d{4}-\d{2}-\d{2}$/;
 
     if (date && !DATE_REGEXP.test(date.value)) {
       return { invalidDate: true };
     }
 
-    const [day, month, year] = date.value.split('/').map(Number);
+    const [year, month, day] = date.value.split('-').map(Number);
 
     // Check if the month is valid
     if (month < 1 || month > 12) {

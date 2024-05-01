@@ -51,7 +51,7 @@ export class BookService {
       rating: 0,
       currentPage: 0,
       totalPages: 0,
-      dateStarted: Intl.DateTimeFormat('en-GB').format(Date.now()),
+      dateStarted: Intl.DateTimeFormat('ISO').format(Date.now()),
       genre: '',
     };
   }
