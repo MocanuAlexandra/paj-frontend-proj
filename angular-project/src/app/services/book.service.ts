@@ -114,16 +114,14 @@ export class BookService {
 
   //delete book
   async deleteBook(bookId: string) {
-    const response = await fetch(`${this.configService.baseURL}/books/delete`, {
+    const response = await fetch(`${this.configService.baseURL}/books/delete/${bookId}`, {
       method: 'DELETE',
       headers: {
         'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        bookId: bookId,
-      }),
+      }
     });
+
+    console.log("The delete book method was called");
 
     if (response.status === 200) {
       console.log('Book deleted successfully');
