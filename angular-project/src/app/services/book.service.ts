@@ -121,8 +121,7 @@ export class BookService {
       }
     });
 
-    console.log("The delete book method was called");
-
+  
     if (response.status === 200) {
       console.log('Book deleted successfully');
 
