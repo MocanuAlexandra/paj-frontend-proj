@@ -11,7 +11,7 @@ import { ConfigService } from './config.service';
   providedIn: 'root',
 })
 export class BookService {
-  private listOfBooksData: Book[]=[];
+  private listOfBooksData: Book[] = [];
   listOfBooksSubject = new Subject<Book[]>();
 
   private edited: Book = this.emptyBook();
@@ -51,22 +51,19 @@ export class BookService {
       rating: 0,
       currentPage: 0,
       totalPages: 0,
-      dateStarted: Intl.DateTimeFormat('ISO').format(Date.now()),
+      dateStarted: this.formatDateToYYYYMMDD(new Date()),
       genre: '',
     };
   }
 
   // request all books for the current user
   async requestBooks() {
-    const response = await fetch(
-      `${this.configService.baseURL}/books/mine`,
-      {
-        method: 'GET',
-        headers: {
-          'Accept': 'application/json',
-        },
-      }
-    );
+    const response = await fetch(`${this.configService.baseURL}/books/mine`, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+      },
+    });
 
     this.listOfBooks = (await response.json()).map((book: any) => {
       return {
@@ -86,15 +83,12 @@ export class BookService {
 
   // request all books for the guest
   async requestBooksForGuest() {
-    const response = await fetch(
-      `${this.configService.baseURL}/books/guest`,
-      {
-        method: 'GET',
-        headers: {
-          'Accept': 'application/json',
-        },
-      }
-    );
+    const response = await fetch(`${this.configService.baseURL}/books/guest`, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+      },
+    });
 
     this.listOfBooks = (await response.json()).map((book: any) => {
       return {
@@ -114,14 +108,16 @@ export class BookService {
 
   //delete book
   async deleteBook(bookId: string) {
-    const response = await fetch(`${this.configService.baseURL}/books/delete/${bookId}`, {
-      method: 'DELETE',
-      headers: {
-        'Accept': 'application/json',
+    const response = await fetch(
+      `${this.configService.baseURL}/books/delete/${bookId}`,
+      {
+        method: 'DELETE',
+        headers: {
+          Accept: 'application/json',
+        },
       }
-    });
+    );
 
-  
     if (response.status === 200) {
       console.log('Book deleted successfully');
 
@@ -138,7 +134,7 @@ export class BookService {
     const response = await fetch(`${this.configService.baseURL}/books/create`, {
       method: 'POST',
       headers: {
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
@@ -157,10 +153,10 @@ export class BookService {
     if (response.status === 200) {
       console.log('Book added successfully');
 
-      //get the added book from backend in order to add it in list of trips
+      //get the added book from backend in order to add it in list of books
       const book = await response.json();
 
-      const newAddedTrip = {
+      const newAddedBook = {
         bookId: book.bookId,
         userId: book.userId,
         title: book.title,
@@ -173,7 +169,7 @@ export class BookService {
         genre: book.genre,
       };
 
-      this.listOfBooks.push(newAddedTrip);
+      this.listOfBooks.push(newAddedBook);
       this.listOfBooksSubject.next(this.listOfBooks);
     }
   }
@@ -183,7 +179,7 @@ export class BookService {
     const response = await fetch(`${this.configService.baseURL}/books/update`, {
       method: 'PUT',
       headers: {
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
@@ -220,7 +216,7 @@ export class BookService {
       {
         method: 'GET',
         headers: {
-          'Accept': 'application/json',
+          Accept: 'application/json',
         },
       }
     );
@@ -253,5 +249,12 @@ export class BookService {
       // else, we update it
       this.updateBook(bookToBeUpdated);
     }
+  }
+
+  formatDateToYYYYMMDD(date: Date): string {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
   }
 }

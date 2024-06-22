@@ -15,7 +15,7 @@ export class BookCardComponent {
   book?: Book | null;
 
   @Output()
-  emitDeleteTripId: EventEmitter<string> = new EventEmitter();
+  emitDeleteBookId: EventEmitter<string> = new EventEmitter();
 
   @Output() openViewDetailsModal: EventEmitter<boolean> =
     new EventEmitter<boolean>();
@@ -27,8 +27,8 @@ export class BookCardComponent {
     //call the service to delete book from backend
     this.bookService.deleteBook(bookId);
 
-    //emit the id of the trip to the parent component
-    this.emitDeleteTripId.emit(bookId);
+    //emit the id of the book to the parent component
+    this.emitDeleteBookId.emit(bookId);
   }
 
   async onViewDetailsClick(bookId: string) {

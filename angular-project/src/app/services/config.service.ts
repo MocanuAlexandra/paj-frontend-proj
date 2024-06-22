@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class ConfigService {
 
+  // Base url used in deployed application
   private _baseURL = 'http://34.205.79.220:80/api';
 
   constructor() { }

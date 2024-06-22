@@ -99,7 +99,7 @@
     <div *ngFor="let elem of currentPageBooks">
       <app-book-card
         [bookListing]="elem"
-        (emitDeleteTripId)="deleteBook($event)"
+        (emitDeleteBookId)="deleteBook($event)"
         (openViewDetailsModal)="onOpenViewDetailsModal()"
       ></app-book-card>
     </div>
